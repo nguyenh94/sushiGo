@@ -37,14 +37,6 @@ def dealCards(allCards):
     # playerCards = Player(dealtCards)
     return dealtCards
 
-# put the rest of the cards into the draw pile
-# def setDrawPile(allCards):
-#     drawPile = allCards
-#     return drawPile
-
-# # play the rounds
-# def playRounds():
-
 # print out cards in the pile user has in hand
 def printHandPile(player):
     handPile = player.getHandPile()
@@ -81,9 +73,7 @@ def userChooseCard(compPlayer, userPlayer):
     allCards = ["Tempura", "Sashimi", "Dumplings", "Two Maki Rolls", "Three Maki Rolls", "One Maki Roll",
                 "Salmon Nigiri", "Squid Nigiri", "Egg Nigiri", "Pudding", "Wasabi", "Chopsticks"]
     printHandPile(userPlayer)
-    # printCompFaceUp(compPlayer)
     # check if the user has chopsticks and ask if they want to use
-    # print("line 165", checkChopsticks(userPlayer))
     if checkChopsticks(userPlayer):
         useChopsticks = input("You currently have a chopsticks card available to use. Would you want to use it? ")
         useChopsticks = useChopsticks.strip().lower()
@@ -150,8 +140,6 @@ def userChooseCard(compPlayer, userPlayer):
         cardName = input("Which card would you like to put down? ")
         cardName = cardName.strip()
         cardName = cardFormatter(cardName)
-        # print("220", allCards)
-        # print("222", cardName)
         while not cardName in allCards or not cardName in handPile:
             if not cardName in allCards:
                 print("The card you chose is invalid.")
@@ -165,8 +153,6 @@ def userChooseCard(compPlayer, userPlayer):
                 cardName = cardFormatter(cardName)
         userPlayer.addFaceUp(cardName)
         userPlayer.withdrawHandPile(cardName)
-        # print("238", userPlayer.cardsFaceUp)
-        # printFaceUp(userPlayer)
         print("You have put down " + cardName + ".")
         print("-----")
 
@@ -194,8 +180,6 @@ def compChooseCard(compPlayer):
         cardName = random.choice(list(handPile))
         compPlayer.addFaceUp(cardName)
         compPlayer.withdrawHandPile(cardName)
-    # print what the computer has faced up
-    # printCompFaceUp(compPlayer)
 
 # check if computer has chopstick. verified
 def checkChopsticks(player):
@@ -250,11 +234,7 @@ def scoreMaki(compPlayer, userPlayer):
     elif compNumMakis == userNumMakis and compNumMakis > 0 and userNumMakis > 0:  # if both tie
         userPlayer.addScore(3)
         compPlayer.addScore(3)
-    # print("compNumMakis", compNumMakis)
-    # print("userNumMakis", userNumMakis)
-    # print("Makis user", compPlayer.totalScore)
-    # print("Makis user", userPlayer.totalScore)
-
+   
 # add up score of Tempura
 def scoreTempura(compPlayer, userPlayer):
     compFaceUp = compPlayer.getFaceUp()
@@ -279,8 +259,6 @@ def scoreTempura(compPlayer, userPlayer):
             userTempura = int(userTempura / 2)
             userScore = userTempura * 5
             userPlayer.addScore(userScore)
-    # print("Tempura comp", compPlayer.totalScore)
-    # print("Tempura user", userPlayer.totalScore)
 
 # cout score for sashimi
 def scoreSashimi(compPlayer, userPlayer):
@@ -306,8 +284,6 @@ def scoreSashimi(compPlayer, userPlayer):
         elif userSashimi == 3:
             userScore = 10
             userPlayer.addScore(userScore)
-    # print("Sashimi comp", compPlayer.totalScore)
-    # print("Sashimi user", userPlayer.totalScore)
 
 # add up score for dumplings
 def scoreDumplings(compPlayer, userPlayer):
@@ -341,8 +317,6 @@ def scoreDumplings(compPlayer, userPlayer):
                 prevScore += i
                 userScore = prevScore
             userPlayer.addScore(userScore)
-    # print("Dumplings comp", compPlayer.totalScore)
-    # print("Dumplings user", userPlayer.totalScore)
 
 # add up score for squid nigiri and wasabi
 def scoreSquidNigiri(compPlayer, userPlayer):
@@ -389,8 +363,6 @@ def scoreSquidNigiri(compPlayer, userPlayer):
         userSquid = userFaceUp["Squid Nigiri"]
         userScore = userSquid * 3
         userPlayer.addScore(userScore)
-    # print("Squid user", compPlayer.totalScore)
-    # print("Squid user", userPlayer.totalScore)
     return wasabiUsedSquidComp, wasabiUsedSquidUser
 
 # add up score for salmon nigiri and wasabi
@@ -447,8 +419,6 @@ def scoreSalmonNigiri(compPlayer, userPlayer, wasabiUsedSquidComp, wasabiUsedSqu
         userSalmon = userFaceUp["Salmon Nigiri"]
         userScore = userSalmon * 2
         userPlayer.addScore(userScore)
-    # print("Salmon user", compPlayer.totalScore)
-    # print("Salmon comp", userPlayer.totalScore)
     return wasabiUsedSalmonComp, wasabiUsedSalmonUser
 
 # add up score for egg nigiri and wasabi
@@ -496,8 +466,6 @@ def scoreEggNigiri(compPlayer, userPlayer, wasabiUsedSquidComp, wasabiUsedSalmon
     elif "Egg Nigiri" in userFaceUp.keys():
         userEgg = userFaceUp["Egg Nigiri"]
         userPlayer.addScore(userEgg)
-    # print("Egg user", compPlayer.totalScore)
-    # print("Egg comp", userPlayer.totalScore)
 
 # add score without pudding
 def totalScoreNoPudding(compPlayer, userPlayer):
@@ -576,8 +544,6 @@ def discardFaceUp(compPlayer, userPlayer):
         userFaceUp = {"Pudding": userPudding}
     else:
         userFaceUp = {}
-    # print("557 compPlayer Pudding is", compFaceUp)
-    # print("558 userPlayer Pudding is", userFaceUp)
     compPlayer.switchFaceUpPile(compFaceUp)
     userPlayer.switchFaceUpPile(userFaceUp)
 
@@ -585,9 +551,7 @@ def playRounds():
     allCards = {"Tempura": 14, "Sashimi": 14, "Dumplings": 14, "Two Maki Rolls": 12, "Three Maki Rolls": 8,
                 "One Maki Roll": 6, "Salmon Nigiri": 10, "Squid Nigiri": 5, "Egg Nigiri": 5, "Pudding": 10, "Wasabi": 6,
                 "Chopsticks": 4}
-    # drawPile = dict()
     print("Let's begin our game of Sushi Go!\n")
-    # print("572 all cards left are", allCards)
     computerPlayer = Player(dealCards(allCards))
     userPlayer = Player(dealCards(allCards))
     # play 3 rounds
@@ -595,8 +559,6 @@ def playRounds():
         print("Round", i)
         print("-----")
         print("Dealing cards...")
-        # deal cards to players
-        # print("577 all cards left are", allCards)
         time.sleep(1)
         print("Finished dealing.")
         print("-----")
@@ -646,8 +608,6 @@ def playRounds():
         # reset stuff for next round
         userFaceUp = userPlayer.getFaceUp()
         compFaceUp = computerPlayer.getFaceUp()
-        # print("627 userFaceUp is", userFaceUp)
-        # print("628 compFaceUp is", compFaceUp)
         dealtCards = dealCards(allCards)
         userPlayer.reset(dealtCards, userFaceUp)
         dealtCards = dealCards(allCards)
